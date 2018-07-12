@@ -15,11 +15,11 @@ import com.farani.mobile.services.CategoriaService;
 public class CategoriaResouce {
 
 	@Autowired
-	private CategoriaService service;
+	private CategoriaService categoriaService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria categoria = service.buscar(id);
+		Categoria categoria = categoriaService.find(id);
 		return ResponseEntity.ok(categoria);
+		}
 	}
-}
