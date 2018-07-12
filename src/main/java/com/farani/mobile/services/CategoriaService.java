@@ -12,10 +12,10 @@ import com.farani.mobile.repositories.CategoriaRepository;
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository categorias;
+	private CategoriaRepository categoriaRepository;
 	
 	public Categoria buscar(Integer id) {
-		Optional<Categoria> obj = categorias.findById(id);
+		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElse(null);
 	}
 }
