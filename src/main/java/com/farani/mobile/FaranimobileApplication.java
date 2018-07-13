@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.farani.mobile.domain.Categoria;
 import com.farani.mobile.domain.Cidade;
+import com.farani.mobile.domain.Cliente;
+import com.farani.mobile.domain.Endereco;
 import com.farani.mobile.domain.Estado;
 import com.farani.mobile.domain.Produto;
+import com.farani.mobile.domain.enums.TipoCliente;
 import com.farani.mobile.repositories.CategoriaRepository;
 import com.farani.mobile.repositories.CidadeRepository;
+import com.farani.mobile.repositories.ClienteRepository;
+import com.farani.mobile.repositories.EnderecoRepository;
 import com.farani.mobile.repositories.EstadoRepository;
 import com.farani.mobile.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class FaranimobileApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FaranimobileApplication.class, args);
@@ -67,7 +78,18 @@ public class FaranimobileApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-
+		
+		Cliente cli1 = new Cliente(null, "Maria da Silva", "maria@gmail.com", "356231258", TipoCliente.PESSOAJURIDICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("36529878", "568974851"));
+		
+		Endereco e1 = new Endereco(null, "Rua flores", "300", "Ap 3030", "Jardins", "87584851", cli1, c1);
+		Endereco e2 = new Endereco(null, "Av matos", "105", "Sala 800", "Centro", "12458795", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
