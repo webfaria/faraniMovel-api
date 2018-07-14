@@ -16,14 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.farani.mobile.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="cliente")
-public class Cliente implements Serializable{
+@Table(name = "cliente")
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -33,15 +34,16 @@ public class Cliente implements Serializable{
 	private Integer tipo;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	// Por padrão este tipo não aceita valores repetidos
 	@ElementCollection
-	@CollectionTable(name="telefone")
+	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
-	
-	@OneToMany(mappedBy="cliente")
+
+	@JsonBackReference
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {

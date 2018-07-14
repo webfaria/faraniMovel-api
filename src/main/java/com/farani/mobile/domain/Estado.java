@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="estado")
+@Table(name = "estado")
 public class Estado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class Estado implements Serializable {
 	private String nome;
 
 	@JsonBackReference
-	@OneToMany(mappedBy="estado")
+	@OneToMany(mappedBy = "estado")
 	private List<Cidade> cidades = new ArrayList<>();
 
 	public Estado() {

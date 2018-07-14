@@ -13,11 +13,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="endereco")
+@Table(name = "endereco")
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -29,11 +29,11 @@ public class Endereco implements Serializable {
 
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cidade_id")
+	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
 	public Endereco() {

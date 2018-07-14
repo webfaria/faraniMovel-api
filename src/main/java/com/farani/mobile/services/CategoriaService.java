@@ -14,10 +14,10 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoundExeception(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
-		}
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+	}
 }

@@ -6,19 +6,22 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="item_pedido")
+@Table(name = "item_pedido")
 public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	@EmbeddedId
-	private ItemPedidoPK id = new ItemPedidoPK(); 
-	
+	private ItemPedidoPK id = new ItemPedidoPK();
+
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
-	
+
 	public ItemPedido() {
 	}
 
@@ -31,14 +34,15 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
-	
+
 	public Produto getProduto() {
 		return id.getProduto();
 	}
-	
+
 	public ItemPedidoPK getId() {
 		return id;
 	}
@@ -95,6 +99,5 @@ public class ItemPedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
 }

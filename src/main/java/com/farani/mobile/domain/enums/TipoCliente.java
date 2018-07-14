@@ -2,8 +2,7 @@ package com.farani.mobile.domain.enums;
 
 public enum TipoCliente {
 
-	PESSOAFISICA(1, "Pessoa física"),
-	PESSOAJURIDICA(2, "Pessoa jurídica");
+	PESSOAFISICA(1, "Pessoa física"), PESSOAJURIDICA(2, "Pessoa jurídica");
 
 	private int cod;
 	private String descricao;
@@ -20,18 +19,18 @@ public enum TipoCliente {
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	public static TipoCliente toEnum(Integer cod) {
-		if(cod == null) {
+		if (cod == null) {
 			return null;
 		}
-		
+
 		for (TipoCliente cliente : TipoCliente.values()) {
-			if(cod.equals(cliente.getCod())) {
+			if (cod.equals(cliente.getCod())) {
 				return cliente;
 			}
 		}
-		
+
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}
 

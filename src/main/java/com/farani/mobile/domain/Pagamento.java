@@ -12,9 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.farani.mobile.domain.enums.TipoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pagamento")
 public abstract class Pagamento implements Serializable {
 
@@ -24,8 +25,9 @@ public abstract class Pagamento implements Serializable {
 	private Integer id;
 	private Integer tipoPagamento;
 
+	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name="pedido_id")
+	@JoinColumn(name = "pedido_id")
 	@MapsId
 	private Pedido pedido;
 

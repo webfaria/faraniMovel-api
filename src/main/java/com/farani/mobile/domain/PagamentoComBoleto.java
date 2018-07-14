@@ -5,19 +5,24 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.farani.mobile.domain.enums.TipoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class PagamentoComBoleto extends Pagamento{
+public class PagamentoComBoleto extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@JsonFormat(pattern = "dd/MM/yyy")
 	private Date dataVencimento;
+
+	@JsonFormat(pattern = "dd/MM/yyy")
 	private Date dataPagamento;
-	
+
 	public PagamentoComBoleto() {
 	}
 
-	public PagamentoComBoleto(Integer id, TipoPagamento tipoPagamento, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+	public PagamentoComBoleto(Integer id, TipoPagamento tipoPagamento, Pedido pedido, Date dataVencimento,
+			Date dataPagamento) {
 		super(id, tipoPagamento, pedido);
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;
@@ -38,5 +43,5 @@ public class PagamentoComBoleto extends Pagamento{
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
-	
+
 }

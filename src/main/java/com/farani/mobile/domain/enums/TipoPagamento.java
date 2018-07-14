@@ -2,13 +2,11 @@ package com.farani.mobile.domain.enums;
 
 public enum TipoPagamento {
 
-	PENDENTE(1, "Pendente"),
-	QUITADO(2, "Quitado"),
-	CANCELADO(3, "Cancelado");
+	PENDENTE(1, "Pendente"), QUITADO(2, "Quitado"), CANCELADO(3, "Cancelado");
 
 	private int cod;
 	private String descricao;
-	
+
 	private TipoPagamento(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
@@ -31,16 +29,16 @@ public enum TipoPagamento {
 	}
 
 	public static TipoPagamento toEnum(Integer cod) {
-		if(cod == null) {
+		if (cod == null) {
 			return null;
 		}
-		
+
 		for (TipoPagamento pagamento : TipoPagamento.values()) {
-			if(cod.equals(pagamento.getCod())) {
+			if (cod.equals(pagamento.getCod())) {
 				return pagamento;
 			}
 		}
-		
+
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}
 
