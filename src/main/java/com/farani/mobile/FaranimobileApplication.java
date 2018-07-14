@@ -13,6 +13,7 @@ import com.farani.mobile.domain.Cidade;
 import com.farani.mobile.domain.Cliente;
 import com.farani.mobile.domain.Endereco;
 import com.farani.mobile.domain.Estado;
+import com.farani.mobile.domain.ItemPedido;
 import com.farani.mobile.domain.Pagamento;
 import com.farani.mobile.domain.PagamentoComBoleto;
 import com.farani.mobile.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.farani.mobile.repositories.CidadeRepository;
 import com.farani.mobile.repositories.ClienteRepository;
 import com.farani.mobile.repositories.EnderecoRepository;
 import com.farani.mobile.repositories.EstadoRepository;
+import com.farani.mobile.repositories.ItemPedidoRepository;
 import com.farani.mobile.repositories.PagamentoRepository;
 import com.farani.mobile.repositories.PedidoRepository;
 import com.farani.mobile.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class FaranimobileApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 
 	public static void main(String[] args) {
@@ -123,6 +128,19 @@ public class FaranimobileApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		
 		pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 
 	}
 

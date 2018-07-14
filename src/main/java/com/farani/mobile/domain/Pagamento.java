@@ -56,11 +56,11 @@ public abstract class Pagamento implements Serializable {
 	}
 
 	public TipoPagamento getTipoPagamento() {
-		return tipoPagamento;
+		return TipoPagamento.toEnum(tipoPagamento);
 	}
 
 	public void setTipoPagamento(TipoPagamento tipoPagamento) {
-		this.tipoPagamento = tipoPagamento;
+		this.tipoPagamento = tipoPagamento.getCod();
 	}
 
 	@Override
