@@ -3,10 +3,12 @@ package com.farani.mobile.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.farani.mobile.domain.Categoria;
 import com.farani.mobile.repositories.CategoriaRepository;
+import com.farani.mobile.services.execeptions.DataIntegrityException;
 import com.farani.mobile.services.execeptions.ObjectNotFoundExeception;
 
 @Service
@@ -29,5 +31,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return categoriaRepository.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			categoriaRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 }

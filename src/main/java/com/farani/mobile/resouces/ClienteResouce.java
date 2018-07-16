@@ -22,4 +22,6 @@ public class ClienteResouce {
 		Cliente cliente = clienteService.find(id);
 		return ResponseEntity.ok(cliente);
 	}
+	
+	
 }
