@@ -1,5 +1,6 @@
 package com.farani.mobile.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CategoriaService {
 		return categoria.orElseThrow(() -> new ObjectNotFoundExeception(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return categoriaRepository.save(obj);
@@ -32,14 +33,17 @@ public class CategoriaService {
 		find(obj.getId());
 		return categoriaRepository.save(obj);
 	}
-	
+
 	public void delete(Integer id) {
 		find(id);
 		try {
 			categoriaRepository.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
+	}
+	
+	public List<Categoria> findAll() {
+		return categoriaRepository.findAll();
 	}
 }
