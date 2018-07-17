@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.farani.mobile.domain.Categoria;
+import com.farani.mobile.dto.CategoriaDTO;
 import com.farani.mobile.repositories.CategoriaRepository;
 import com.farani.mobile.services.execeptions.DataIntegrityException;
 import com.farani.mobile.services.execeptions.ObjectNotFoundExeception;
@@ -53,5 +54,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return categoriaRepository.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }

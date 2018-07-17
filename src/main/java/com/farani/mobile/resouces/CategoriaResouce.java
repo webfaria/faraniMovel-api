@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -26,34 +28,40 @@ public class CategoriaResouce {
 	@Autowired
 	private CategoriaService categoriaService;
 
+	//PESQUISA POR ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria categoria = categoriaService.find(id);
 		return ResponseEntity.ok(categoria);
 	}
 
+	//CADASTRO DE CATEGORIA
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> Insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = categoriaService.fromDTO(objDto);
 		obj = categoriaService.insert(obj);
-		// Recupera Uri no momento da inserção
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+	//ATUALIZA CATEGORIA
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+		Categoria obj = categoriaService.fromDTO(objDto);
 		obj.setId(id);
 		obj = categoriaService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
+	//DELETA CATEGORIA
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	//BUSCA TODAS CATEGORIAS
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> list = categoriaService.findAll();
