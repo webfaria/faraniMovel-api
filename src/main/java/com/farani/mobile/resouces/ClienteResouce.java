@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.farani.mobile.domain.Cliente;
 import com.farani.mobile.dto.ClienteDTO;
+import com.farani.mobile.dto.ClienteNewDTO;
 import com.farani.mobile.services.ClienteService;
 
 @RestController
@@ -28,6 +29,7 @@ public class ClienteResouce {
 	@Autowired
 	private ClienteService clienteService;
 
+	//BUSCA POR ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente cliente = clienteService.find(id);
@@ -36,11 +38,11 @@ public class ClienteResouce {
 	
 	//CADASTRO
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = clienteService.fromDTO(objDto);
 		obj = clienteService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{id}").buildAndExpand(obj.getId()).toUri();
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
