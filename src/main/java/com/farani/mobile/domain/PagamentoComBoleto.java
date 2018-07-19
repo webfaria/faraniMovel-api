@@ -3,11 +3,15 @@ package com.farani.mobile.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.farani.mobile.domain.enums.TipoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto")
+@Table(name="pagamento_com_boleto")
 public class PagamentoComBoleto extends Pagamento {
 
 	private static final long serialVersionUID = 1L;

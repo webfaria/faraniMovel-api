@@ -13,9 +13,11 @@ import javax.persistence.Table;
 
 import com.farani.mobile.domain.enums.TipoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 @Table(name = "pagamento")
 public abstract class Pagamento implements Serializable {
 
