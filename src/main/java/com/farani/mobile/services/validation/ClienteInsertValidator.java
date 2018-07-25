@@ -12,7 +12,7 @@ import com.farani.mobile.domain.Cliente;
 import com.farani.mobile.domain.enums.TipoCliente;
 import com.farani.mobile.dto.ClienteNewDTO;
 import com.farani.mobile.repositories.ClienteRepository;
-import com.farani.mobile.resouces.exeption.FieldMessage;
+import com.farani.mobile.resouces.exceptions.FieldMessage;
 import com.farani.mobile.services.validation.utils.BR;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {

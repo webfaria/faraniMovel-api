@@ -1,4 +1,4 @@
-package com.farani.mobile.services.execeptions;
+package com.farani.mobile.services.exceptions;
 
 public class DataIntegrityException extends RuntimeException {
 

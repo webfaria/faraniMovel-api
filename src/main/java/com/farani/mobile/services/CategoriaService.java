@@ -14,8 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.farani.mobile.domain.Categoria;
 import com.farani.mobile.dto.CategoriaDTO;
 import com.farani.mobile.repositories.CategoriaRepository;
-import com.farani.mobile.services.execeptions.DataIntegrityException;
-import com.farani.mobile.services.execeptions.ObjectNotFoundExeception;
+import com.farani.mobile.services.exceptions.DataIntegrityException;
+import com.farani.mobile.services.exceptions.ObjectNotFoundException;
+
 
 @Service
 public class CategoriaService {
@@ -25,7 +26,7 @@ public class CategoriaService {
 
 	public Categoria find(Integer id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
-		return categoria.orElseThrow(() -> new ObjectNotFoundExeception(
+		return categoria.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 

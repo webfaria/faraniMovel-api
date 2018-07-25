@@ -14,7 +14,8 @@ import com.farani.mobile.domain.enums.TipoPagamento;
 import com.farani.mobile.repositories.ItemPedidoRepository;
 import com.farani.mobile.repositories.PagamentoRepository;
 import com.farani.mobile.repositories.PedidoRepository;
-import com.farani.mobile.services.execeptions.ObjectNotFoundExeception;
+import com.farani.mobile.services.exceptions.ObjectNotFoundException;
+
 
 @Service
 public class PedidoService {
@@ -42,7 +43,7 @@ public class PedidoService {
 	
 	public Pedido find(Integer id) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
-		return pedido.orElseThrow(() -> new ObjectNotFoundExeception(
+		return pedido.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 

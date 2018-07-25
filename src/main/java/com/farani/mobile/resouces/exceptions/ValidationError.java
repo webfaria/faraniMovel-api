@@ -1,4 +1,4 @@
-	package com.farani.mobile.resouces.exeption;
+	package com.farani.mobile.resouces.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,13 +16,16 @@ import org.springframework.stereotype.Service;
 import com.farani.mobile.domain.Cidade;
 import com.farani.mobile.domain.Cliente;
 import com.farani.mobile.domain.Endereco;
+import com.farani.mobile.domain.enums.Perfil;
 import com.farani.mobile.domain.enums.TipoCliente;
 import com.farani.mobile.dto.ClienteDTO;
 import com.farani.mobile.dto.ClienteNewDTO;
 import com.farani.mobile.repositories.ClienteRepository;
 import com.farani.mobile.repositories.EnderecoRepository;
-import com.farani.mobile.services.execeptions.DataIntegrityException;
-import com.farani.mobile.services.execeptions.ObjectNotFoundExeception;
+import com.farani.mobile.security.UserSS;
+import com.farani.mobile.services.exceptions.AuthorizationException;
+import com.farani.mobile.services.exceptions.DataIntegrityException;
+import com.farani.mobile.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
@@ -37,8 +40,14 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> cliente = clienteRepository.findById(id);
-		return cliente.orElseThrow(() -> new ObjectNotFoundExeception(
+		return cliente.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	

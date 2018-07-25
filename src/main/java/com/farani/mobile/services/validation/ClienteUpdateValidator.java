@@ -14,7 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.farani.mobile.domain.Cliente;
 import com.farani.mobile.dto.ClienteDTO;
 import com.farani.mobile.repositories.ClienteRepository;
-import com.farani.mobile.resouces.exeption.FieldMessage;
+import com.farani.mobile.resouces.exceptions.FieldMessage;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
