@@ -63,7 +63,7 @@ public class ClienteService {
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
 	}
-
+	
 	public Cliente update(Cliente obj) {
 		Cliente newObj = find(obj.getId());
 		updateData(newObj, obj);
@@ -115,7 +115,27 @@ public class ClienteService {
 	}
 
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		URI uri = s3Service.uploadFile(multipartFile);
+		Cliente cli = new Cliente();
+		
+		Optional<Cliente> cliente = clienteRepository.findById(user.getId());
+		cliente.orElse(cli);
+		cli.setImageUrl(toString());
 
-		return s3Service.uploadFile(multipartFile);
+		return uri;
+	
+/*		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage, size);
+		
+		String fileName = prefix + user.getId() + ".jpg";*/
+		
+		//return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
+
 }
